@@ -1,391 +1,381 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
+const DURATION = 5000;
 const testimonials = [
-  {
-    stars: 5,
-    service: "Residential Renovation",
-    location: "Marine Lines",
-    text: "Gunatit Enterprise did an amazing job renovating our home. The team was very supportive throughout the process and guided us at every step. The final result came out even better than we expected. Definitely one of the most reliable civil contractor in Mumbai we've worked with.",
-    icon: "🏠",
-    initial: "MR",
-  },
-  {
-    stars: 5,
-    service: "Bathroom & Kitchen Remodeling",
-    location: "Kandivali",
-    text: "We got our kitchen and bathroom renovated by Gunatit Enterprise, and the experience was really smooth. The designs are modern and practical, and the work was completed on time. If you're searching for a good civil contractor in Mumbai, you can trust them.",
-    icon: "🍳",
-    initial: "KR",
-  },
-  {
-    stars: 5,
-    service: "RCC & Structural Work",
-    location: "Borivali",
-    text: "We hired them for RCC and structural work, and the quality was very solid. Everything was done properly with attention to safety and durability. It's hard to find a civil contractor in Mumbai with this level of expertise.",
-    icon: "🏗️",
-    initial: "BR",
-  },
-  {
-    stars: 5,
-    service: "Commercial Project Execution",
-    location: "Juhu",
-    text: "Our commercial project was handled very professionally. The team was well-organized, and communication was clear from start to finish. They delivered on time without compromising on quality. Highly recommend them as a civil contractor in Mumbai.",
-    icon: "🏢",
-    initial: "JC",
-  },
-  {
-    stars: 5,
-    service: "Interior & Finishing Work",
-    location: "Mira Road",
-    text: "We got interior and finishing work done, including POP and painting. The finishing quality was neat, and the team paid attention to small details. Overall, a very good experience with this civil contractor in Mumbai.",
-    icon: "🎨",
-    initial: "MM",
-  },
-  {
-    stars: 5,
-    service: "Waterproofing & Maintenance",
-    location: "Andheri",
-    text: "We had leakage issues for a long time, and Gunatit Enterprise provided a proper waterproofing solution. It's been months now, and there are no problems. They are a dependable civil contractor in Mumbai.",
-    icon: "💧",
-    initial: "AW",
-  },
-  {
-    stars: 5,
-    service: "End-to-End Construction",
-    location: "Goa",
-    text: "We wanted everything to be managed by one team, and Gunatit Enterprise handled civil work, interiors, and electrical perfectly. It made the whole process stress-free for us. A genuine and professional civil contractor in Mumbai.",
-    icon: "🌴",
-    initial: "GC",
-  },
+  { icon: "🏠", service: "Residential Renovation",       location: "Marine Lines", initial: "MR", text: "Gunatit Enterprise did an amazing job renovating our home. The team was very supportive throughout the process and guided us at every step. The final result came out even better than we expected." },
+  { icon: "🍳", service: "Bathroom & Kitchen Remodeling", location: "Kandivali",   initial: "KR", text: "We got our kitchen and bathroom renovated by Gunatit Enterprise, and the experience was really smooth. The designs are modern and practical, and the work was completed on time." },
+  { icon: "🏗️", service: "RCC & Structural Work",         location: "Borivali",    initial: "BR", text: "We hired them for RCC and structural work, and the quality was very solid. Everything was done properly with attention to safety and durability. Hard to find this level of expertise anywhere else." },
+  { icon: "🏢", service: "Commercial Project Execution",  location: "Juhu",        initial: "JC", text: "Our commercial project was handled very professionally. Communication was clear from start to finish. They delivered on time without compromising on quality." },
+  { icon: "🎨", service: "Interior & Finishing Work",     location: "Mira Road",   initial: "MM", text: "We got interior and finishing work done, including POP and painting. The finishing quality was neat, and the team paid attention to small details. Overall a very good experience." },
+  { icon: "💧", service: "Waterproofing & Maintenance",   location: "Andheri",     initial: "AW", text: "We had leakage issues for a long time, and Gunatit Enterprise provided a proper waterproofing solution. It's been months now and there are no problems at all." },
+  { icon: "🌴", service: "End-to-End Construction",       location: "Goa",         initial: "GC", text: "We wanted everything managed by one team, and Gunatit Enterprise handled civil work, interiors, and electrical perfectly. It made the whole process completely stress-free." },
 ];
+const TOTAL = testimonials.length;
 
-const orange = "#f97316";
-const cream = "#fff7ed";
-const dark = "#1a2332";
-const orangeLight = "rgba(249,115,22,0.10)";
+/* ── Stars ── */
+const Stars = ({ white }) => (
+  <div className="flex gap-0.5">
+    {Array(5).fill(0).map((_, i) => (
+      <svg key={i} width="13" height="13" viewBox="0 0 24 24"
+        className={white ? "fill-white" : "fill-[#4167BE]"}>
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+    ))}
+  </div>
+);
+
+/* ── Card ── */
+function Card({ t, featured }) {
+  return (
+    <div className={`
+      w-full h-full rounded-3xl p-7 flex flex-col relative overflow-hidden min-h-[400px]
+      ${featured
+        ? "bg-gradient-to-br from-[#2d4fa3] to-[#4167BE] border border-[#4167BE] shadow-[0_32px_80px_rgba(65,103,190,0.32)]"
+        : "bg-white border border-[#dce5f7] shadow-[0_6px_28px_rgba(15,23,42,0.07)]"
+      }
+    `}>
+
+      {/* Decorative quote */}
+      <span className={`
+        absolute -top-2 right-3 text-[110px] leading-none pointer-events-none select-none font-serif
+        ${featured ? "text-white/[0.07]" : "text-[#4167BE]/[0.05]"}
+      `}>&#8220;</span>
+
+      {/* Featured badge */}
+      {featured && (
+        <span className="absolute top-5 right-5 bg-white/20 text-white text-[10px] font-bold
+          tracking-[0.08em] uppercase px-3 py-1 rounded-full border border-white/25">
+          ⭐ Featured
+        </span>
+      )}
+
+      {/* Service tag */}
+      <span className={`
+        inline-flex items-center gap-1.5 text-[11px] font-semibold px-3.5 py-1.5
+        rounded-full mb-4 w-fit border
+        ${featured
+          ? "bg-white/[0.18] text-white border-white/25"
+          : "bg-[#eff3fb] text-[#4167BE] border-[#dce5f7]"
+        }
+      `}>
+        {t.icon} {t.service}
+      </span>
+
+      <Stars white={featured} />
+
+      {/* Quote */}
+      <p className={`
+        text-[13.5px] leading-[1.8] flex-1 mt-3.5 mb-4
+        line-clamp-4
+        ${featured ? "text-white/85" : "text-slate-500"}
+      `}>
+        &#8220;{t.text}&#8221;
+      </p>
+
+      {/* Author */}
+      <div className={`
+        flex items-center gap-3 pt-4
+        ${featured ? "border-t border-white/20" : "border-t border-[#dce5f7]"}
+      `}>
+        <div className={`
+          w-10 h-10 rounded-full flex items-center justify-center
+          font-bold text-[13px] flex-shrink-0
+          ${featured ? "bg-white/25 text-white" : "bg-[#4167BE] text-white"}
+        `}>
+          {t.initial}
+        </div>
+        <div>
+          <p className={`text-[12.5px] font-semibold leading-tight
+            ${featured ? "text-white" : "text-[#0f1f5c]"}`}>
+            Verified Client
+          </p>
+          <p className={`text-[11px] mt-0.5
+            ${featured ? "text-white/60" : "text-slate-400"}`}>
+            📍 {t.location}
+          </p>
+        </div>
+        <div className="ml-auto">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+            strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+            className={featured ? "stroke-white/70" : "stroke-[#4167BE]"}>
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function ClientTestimonials() {
-  const [active, setActive] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [direction, setDirection] = useState("right");
-  const autoRef = useRef(null);
-  const total = testimonials.length;
+  const [active,  setActive]  = useState(0);
+  const [prevIdx, setPrevIdx] = useState(TOTAL - 1);
+  const [nextIdx, setNextIdx] = useState(1);
+  const [phase,   setPhase]   = useState("idle");
+  const [dir,     setDir]     = useState(1);
+  const [progPct, setProgPct] = useState(0);
+  const [inView,  setInView]  = useState(false);
 
-  const goTo = (idx, dir = "right") => {
-    if (isAnimating) return;
-    setDirection(dir);
-    setIsAnimating(true);
-    setTimeout(() => {
-      setActive((idx + total) % total);
-      setIsAnimating(false);
-    }, 300);
-  };
+  const autoRef    = useRef(null);
+  const rafRef     = useRef(null);
+  const t0Ref      = useRef(null);
+  const sectionRef = useRef(null);
+  const touchX     = useRef(0);
 
-  const prev = () => goTo(active - 1, "left");
-  const next = () => goTo(active + 1, "right");
-
+  /* IntersectionObserver */
   useEffect(() => {
-    autoRef.current = setInterval(() => goTo(active + 1, "right"), 5000);
-    return () => clearInterval(autoRef.current);
-  }, [active]);
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setInView(true); },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) obs.observe(sectionRef.current);
+    return () => obs.disconnect();
+  }, []);
 
-  // Visible cards: prev, active, next (3 at a time on desktop)
-  const getVisible = () => {
-    return [
-      (active - 1 + total) % total,
-      active,
-      (active + 1) % total,
-    ];
+  /* Progress bar RAF */
+  const startProgress = useCallback(() => {
+    cancelAnimationFrame(rafRef.current);
+    setProgPct(0);
+    t0Ref.current = performance.now();
+    const tick = (now) => {
+      const pct = Math.min(((now - t0Ref.current) / DURATION) * 100, 100);
+      setProgPct(pct);
+      if (pct < 100) rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+  }, []);
+
+  /* Navigate */
+  const navigate = useCallback((d) => {
+    if (phase !== "idle") return;
+    cancelAnimationFrame(rafRef.current);
+    clearTimeout(autoRef.current);
+    setDir(d);
+    setPhase("exit");
+  }, [phase]);
+
+  /* Phase machine */
+  useEffect(() => {
+    if (phase === "exit") {
+      const id = setTimeout(() => {
+        setActive(a => {
+          const newA = (a + dir + TOTAL) % TOTAL;
+          setPrevIdx((newA - 1 + TOTAL) % TOTAL);
+          setNextIdx((newA + 1) % TOTAL);
+          return newA;
+        });
+        setPhase("enter");
+      }, 380);
+      return () => clearTimeout(id);
+    }
+    if (phase === "enter") {
+      const id = setTimeout(() => {
+        setPhase("idle");
+        startProgress();
+        autoRef.current = setTimeout(() => navigate(1), DURATION);
+      }, 480);
+      return () => clearTimeout(id);
+    }
+    if (phase === "idle") {
+      startProgress();
+      autoRef.current = setTimeout(() => navigate(1), DURATION);
+      return () => { clearTimeout(autoRef.current); cancelAnimationFrame(rafRef.current); };
+    }
+  }, [phase]);
+
+  const goNext = () => navigate(1);
+  const goPrev = () => navigate(-1);
+  const goIdx  = (i) => { if (i !== active && phase === "idle") navigate(i > active ? 1 : -1); };
+
+  const onTouchStart = (e) => { touchX.current = e.touches[0].clientX; };
+  const onTouchEnd   = (e) => {
+    const dx = e.changedTouches[0].clientX - touchX.current;
+    if (Math.abs(dx) > 44) dx < 0 ? goNext() : goPrev();
   };
 
-  const visibleIdx = getVisible();
+  /* Per-role transition classes */
+  const cardClasses = (role) => {
+    const base = "transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)] will-change-transform";
+    if (phase === "idle" || phase === "enter") {
+      if (role === "center") return `${base} opacity-100 scale-100 translate-x-0`;
+      return `${base} opacity-45 scale-[0.88] translate-x-0`;
+    }
+    if (phase === "exit") {
+      if (dir === 1) {
+        if (role === "center") return `${base} opacity-0 scale-90 -translate-x-14`;
+        if (role === "prev")   return `${base} opacity-0 scale-[0.82] -translate-x-20`;
+        if (role === "next")   return `${base} opacity-65 scale-95 -translate-x-7`;
+      } else {
+        if (role === "center") return `${base} opacity-0 scale-90 translate-x-14`;
+        if (role === "prev")   return `${base} opacity-65 scale-95 translate-x-7`;
+        if (role === "next")   return `${base} opacity-0 scale-[0.82] translate-x-20`;
+      }
+    }
+    return base;
+  };
 
   return (
     <section
-      style={{ fontFamily: "'DM Sans', sans-serif", background: cream }}
-      className="py-20 px-4 md:px-8 overflow-hidden"
+      ref={sectionRef}
+      className="bg-white py-24 px-4 md:px-8 overflow-hidden"
+      style={{ fontFamily: "'Poppins', system-ui, sans-serif" }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;600&display=swap');
-        .display-font { font-family: 'Playfair Display', serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        @keyframes fadeUp   { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes shimmer  { 0%{background-position:-200% center} 100%{background-position:200% center} }
+        @keyframes pulse    { 0%,100%{box-shadow:0 0 0 0 rgba(65,103,190,.38)} 50%{box-shadow:0 0 0 9px rgba(65,103,190,0)} }
+        @keyframes statPop  { from{opacity:0;transform:scale(.8) translateY(10px)} to{opacity:1;transform:scale(1) translateY(0)} }
 
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideInRight {
-          from { opacity: 0; transform: translateX(40px) scale(0.97); }
-          to { opacity: 1; transform: translateX(0) scale(1); }
-        }
-        @keyframes slideInLeft {
-          from { opacity: 0; transform: translateX(-40px) scale(0.97); }
-          to { opacity: 1; transform: translateX(0) scale(1); }
-        }
-        @keyframes slideOutRight {
-          from { opacity: 1; transform: translateX(0); }
-          to { opacity: 0; transform: translateX(40px); }
-        }
-        @keyframes slideOutLeft {
-          from { opacity: 1; transform: translateX(0); }
-          to { opacity: 0; transform: translateX(-40px); }
-        }
+        .ct-rv        { opacity:0 }
+        .ct-rv.in     { animation: fadeUp .72s cubic-bezier(.22,1,.36,1) both }
+        .ct-d1.in     { animation-delay:.06s }
+        .ct-d2.in     { animation-delay:.14s }
+        .ct-d3.in     { animation-delay:.22s }
+        .ct-d4.in     { animation-delay:.30s }
 
-        .fade-up { animation: fadeUp 0.6s ease forwards; opacity: 0; }
-        .d1{animation-delay:0.05s} .d2{animation-delay:0.15s} .d3{animation-delay:0.25s}
+        .ct-shimmer {
+          background: linear-gradient(90deg,#2d4fa3,#4167BE,#8fa8de,#4167BE);
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: shimmer 4s linear infinite;
+        }
+        .ct-badge-dot { animation: pulse 2.2s ease-in-out infinite; }
 
-        .tcard {
-          background: #ffffff;
-          border: 1.5px solid #fed7aa;
-          border-radius: 20px;
-          transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
-          position: relative;
-          overflow: hidden;
-        }
-        .tcard::before {
-          content: '"';
-          position: absolute;
-          top: -10px; right: 20px;
-          font-size: 120px;
-          font-family: 'Playfair Display', serif;
-          color: rgba(249,115,22,0.07);
-          line-height: 1;
-          pointer-events: none;
-        }
-        .tcard.center-card {
-          border-color: ${orange};
-          box-shadow: 0 20px 60px rgba(249,115,22,0.18);
-          transform: scale(1.03);
-          z-index: 2;
-        }
-        .tcard.side-card {
-          opacity: 0.65;
-          transform: scale(0.96);
-          border-color: #fed7aa;
-          box-shadow: none;
-        }
-
-        .avatar {
-          width: 48px; height: 48px;
-          border-radius: 50%;
-          display: flex; align-items: center; justify-content: center;
-          font-weight: 700; font-size: 15px;
-          color: white;
-          background: linear-gradient(135deg, ${orange}, #ea580c);
-          flex-shrink: 0;
-        }
-
-        .star { color: ${orange}; font-size: 14px; }
-
-        .nav-btn {
-          width: 44px; height: 44px;
-          border-radius: 50%;
-          border: 1.5px solid #fed7aa;
-          background: white;
-          display: flex; align-items: center; justify-content: center;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          color: ${orange};
-        }
-        .nav-btn:hover {
-          background: ${orange};
-          border-color: ${orange};
-          color: white;
-          box-shadow: 0 4px 16px rgba(249,115,22,0.25);
-        }
-
-        .dot {
-          height: 8px; border-radius: 4px;
-          transition: all 0.3s ease;
-          cursor: pointer;
-        }
-        .dot.active { background: ${orange}; width: 28px; }
-        .dot.inactive { background: #fed7aa; width: 8px; }
-        .dot:hover { background: ${orange}; }
-
-        .section-pill {
-          background: ${orangeLight};
-          border: 1px solid #fed7aa;
-          color: ${orange};
-        }
+        .ct-stat-pop  { animation: statPop .6s cubic-bezier(.34,1.56,.64,1) both; }
       `}</style>
 
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
 
-        {/* Header */}
-        <div className="text-center mb-14 fade-up d1">
-          <span className="section-pill inline-block text-xs tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
-            Client Testimonials
-          </span>
-          <h2
-            className="display-font text-4xl md:text-5xl font-bold leading-tight mb-4"
-            style={{ color: dark }}
-          >
+        {/* ════ HEADER ════ */}
+        <div className={`ct-rv ct-d1 ${inView ? "in" : ""} text-center mb-14`}>
+
+          {/* Badge */}
+          <div className="flex justify-center mb-5">
+            <div className="inline-flex items-center gap-2 bg-[#eff3fb] border border-[#dce5f7]
+              text-[#4167BE] rounded-full px-5 py-2 text-[11px] font-bold tracking-[0.12em] uppercase">
+              <span className="ct-badge-dot w-2 h-2 rounded-full bg-[#4167BE] flex-shrink-0" />
+              Client Testimonials
+            </div>
+          </div>
+
+          <h2 className="font-extrabold text-[#0f1f5c] leading-tight mb-4"
+            style={{ fontSize: "clamp(30px,3.6vw,50px)" }}>
             What Our{" "}
-            <span style={{ color: orange }}>Clients</span> Say
+            <span className="ct-shimmer">Clients Say</span>
           </h2>
-          <p className="text-slate-500 text-base font-light max-w-lg mx-auto leading-relaxed">
+
+          <p className="text-slate-500 font-light max-w-[500px] mx-auto leading-relaxed mb-5"
+            style={{ fontSize: "15.5px" }}>
             Trusted by homeowners and businesses across Mumbai — here's what they experienced.
           </p>
 
-          {/* Stars row */}
-          <div className="flex items-center justify-center gap-2 mt-5">
-            {[...Array(5)].map((_, i) => (
-              <span key={i} className="star text-xl">⭐</span>
+          <div className="flex items-center justify-center gap-1">
+            {Array(5).fill(0).map((_, i) => (
+              <svg key={i} viewBox="0 0 24 24" width="17" height="17" className="fill-[#4167BE]">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
             ))}
-            <span className="text-sm text-slate-500 font-light ml-2">5.0 Average Rating · 7 Reviews</span>
+            <span className="text-slate-400 text-[13px] font-light ml-2">
+              5.0 Average · {TOTAL} Reviews
+            </span>
           </div>
         </div>
 
-        {/* ── DESKTOP SWIPER (3 cards) ── */}
-        <div className="hidden md:grid grid-cols-3 gap-5 mb-10 fade-up d2">
-          {visibleIdx.map((idx, pos) => {
-            const t = testimonials[idx];
-            const isCenter = pos === 1;
-            return (
-              <div
-                key={`${idx}-${active}`}
-                className={`tcard p-6 ${isCenter ? "center-card" : "side-card"}`}
-                onClick={() => !isCenter && (pos === 0 ? prev() : next())}
-                style={{ cursor: isCenter ? "default" : "pointer" }}
-              >
-                {/* Service tag */}
-                <div className="flex items-center gap-2 mb-4">
-                  <span
-                    className="text-xs font-semibold px-3 py-1 rounded-full"
-                    style={{ background: orangeLight, color: orange }}
-                  >
-                    {t.icon} {t.service}
-                  </span>
-                  {isCenter && (
-                    <span
-                      className="text-xs px-2.5 py-1 rounded-full font-medium text-white ml-auto"
-                      style={{ background: orange }}
-                    >
-                      Featured
-                    </span>
-                  )}
-                </div>
-
-                {/* Stars */}
-                <div className="flex gap-0.5 mb-3">
-                  {[...Array(t.stars)].map((_, i) => (
-                    <span key={i} className="star">⭐</span>
-                  ))}
-                </div>
-
-                {/* Text */}
-                <p className="text-slate-600 text-sm leading-relaxed font-light mb-5 line-clamp-4">
-                  "{t.text}"
-                </p>
-
-                {/* Author */}
-                <div className="flex items-center gap-3 pt-4 border-t border-orange-100">
-                  <div className="avatar">{t.initial}</div>
-                  <div>
-                    <div className="text-sm font-semibold" style={{ color: dark }}>
-                      Verified Client
-                    </div>
-                    <div className="text-xs text-slate-400 flex items-center gap-1">
-                      <span>📍</span> {t.location}
-                    </div>
-                  </div>
-                  <div className="ml-auto">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill={orangeLight} stroke={orange} strokeWidth="1.5">
-                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* ── MOBILE SWIPER (1 card) ── */}
-        <div className="md:hidden mb-10 fade-up d2">
+        {/* ════ PROGRESS BAR ════ */}
+        <div className={`ct-rv ct-d2 ${inView ? "in" : ""} max-w-xl mx-auto mb-10
+          h-[3px] bg-[#dce5f7] rounded-full overflow-hidden`}>
           <div
-            className="tcard center-card p-6"
-            style={{
-              animation: isAnimating
-                ? direction === "right"
-                  ? "slideOutLeft 0.3s ease forwards"
-                  : "slideOutRight 0.3s ease forwards"
-                : direction === "right"
-                ? "slideInRight 0.35s ease forwards"
-                : "slideInLeft 0.35s ease forwards",
-            }}
-          >
-            {(() => {
-              const t = testimonials[active];
-              return (
-                <>
-                  <div className="flex items-center gap-2 mb-4">
-                    <span
-                      className="text-xs font-semibold px-3 py-1 rounded-full"
-                      style={{ background: orangeLight, color: orange }}
-                    >
-                      {t.icon} {t.service}
-                    </span>
-                    <span
-                      className="text-xs px-2.5 py-1 rounded-full font-medium text-white ml-auto"
-                      style={{ background: orange }}
-                    >
-                      {t.location}
-                    </span>
-                  </div>
-                  <div className="flex gap-0.5 mb-3">
-                    {[...Array(t.stars)].map((_, i) => (
-                      <span key={i} className="star">⭐</span>
-                    ))}
-                  </div>
-                  <p className="text-slate-600 text-sm leading-relaxed font-light mb-5">
-                    "{t.text}"
-                  </p>
-                  <div className="flex items-center gap-3 pt-4 border-t border-orange-100">
-                    <div className="avatar">{t.initial}</div>
-                    <div>
-                      <div className="text-sm font-semibold" style={{ color: dark }}>Verified Client</div>
-                      <div className="text-xs text-slate-400">📍 {t.location}</div>
-                    </div>
-                  </div>
-                </>
-              );
-            })()}
+            className="h-full bg-[#4167BE] rounded-full transition-[width] duration-[120ms] linear"
+            style={{ width: `${progPct}%` }}
+          />
+        </div>
+
+        {/* ════ SLIDER ════ */}
+        <div
+          className={`ct-rv ct-d3 ${inView ? "in" : ""} mb-8`}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          <div className="flex items-stretch justify-center gap-5">
+
+            {/* LEFT */}
+            <div className={`hidden md:block w-[230px] flex-shrink-0 ${cardClasses("prev")}`}>
+              <Card t={testimonials[prevIdx]} featured={false} />
+            </div>
+
+            {/* CENTER */}
+            <div className={`w-[440px] max-w-full flex-shrink-0 ${cardClasses("center")}`}>
+              <Card t={testimonials[active]} featured={true} />
+            </div>
+
+            {/* RIGHT */}
+            <div className={`hidden md:block w-[230px] flex-shrink-0 ${cardClasses("next")}`}>
+              <Card t={testimonials[nextIdx]} featured={false} />
+            </div>
+
           </div>
         </div>
 
-        {/* Controls */}
-        <div className="flex items-center justify-center gap-5 fade-up d3">
-          <button className="nav-btn" onClick={prev}>
-            <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round"/>
+        {/* ════ CONTROLS ════ */}
+        <div className={`ct-rv ct-d3 ${inView ? "in" : ""} flex items-center justify-center gap-4 mb-3`}>
+
+          {/* Prev btn — outline */}
+          <button
+            onClick={goPrev}
+            className="w-11 h-11 rounded-full border border-[#dce5f7] bg-white text-[#4167BE]
+              flex items-center justify-center cursor-pointer
+              hover:bg-[#eff3fb] hover:border-[#4167BE] hover:scale-110
+              transition-all duration-200"
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6"/>
             </svg>
           </button>
 
           {/* Dots */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             {testimonials.map((_, i) => (
-              <div
+              <button
                 key={i}
-                className={`dot ${i === active ? "active" : "inactive"}`}
-                onClick={() => goTo(i, i > active ? "right" : "left")}
+                onClick={() => goIdx(i)}
+                className={`
+                  h-2 rounded-full border-none cursor-pointer
+                  transition-all duration-300
+                  ${i === active
+                    ? "w-7 bg-[#4167BE]"
+                    : "w-2 bg-[#dce5f7] hover:bg-[#4167BE]"
+                  }
+                `}
               />
             ))}
           </div>
 
-          <button className="nav-btn" onClick={next}>
-            <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round"/>
+          {/* Next btn — filled */}
+          <button
+            onClick={goNext}
+            className="w-11 h-11 rounded-full bg-[#4167BE] text-white
+              flex items-center justify-center cursor-pointer
+              hover:bg-[#2d4fa3] hover:scale-110
+              hover:shadow-[0_6px_20px_rgba(65,103,190,0.35)]
+              transition-all duration-200"
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 18l6-6-6-6"/>
             </svg>
           </button>
         </div>
 
         {/* Counter */}
-        <div className="text-center mt-4 fade-up d3">
-          <span className="text-sm text-slate-400 font-light">
-            <span style={{ color: orange, fontWeight: 600 }}>{active + 1}</span>
-            {" "}/ {total}
-          </span>
-        </div>
+        <p className={`ct-rv ct-d3 ${inView ? "in" : ""} text-center text-[13px] font-light text-slate-400 mb-14`}>
+          <span className="text-[#4167BE] font-bold">{active + 1}</span> / {TOTAL}
+        </p>
+
+        
+
       </div>
     </section>
   );

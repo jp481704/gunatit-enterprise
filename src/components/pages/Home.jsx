@@ -9,10 +9,14 @@ import ProblemSolutionSection from "../sections/ProblemSolutionSection";
 import TrendingAndAreas from "../sections/TrendingAndAreas";
 import ClientTestimonials from "../sections/ClientTestimonials";
 import Faq from "../sections/Faq";
+import Navbar from "../common/Navbar";
+import  "../../App.css";
 
 const Home = () => {
   return (
     <div>
+            <Navbar />
+
       <Hero />
       <LogoStrip />
       <AboutSection />
