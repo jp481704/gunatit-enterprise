@@ -10,6 +10,8 @@ import TrendingAndAreas from "../sections/TrendingAndAreas";
 import ClientTestimonials from "../sections/ClientTestimonials";
 import Faq from "../sections/Faq";
 import Navbar from "../common/Navbar";
+import Footer from "../common/Footer";
+import ContactUs from "../sections/ContactUs";
 import  "../../App.css";
 
 const Home = () => {
@@ -27,6 +29,8 @@ const Home = () => {
       <TrendingAndAreas/>
       <ClientTestimonials/>
       <Faq/>
+      <ContactUs />
+      <Footer />
     </div>
   );
 };

@@ -18,7 +18,7 @@ export default function ProblemSolutionSection() {
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      ([e]) => setInView(e.isIntersecting),
       { threshold: 0.15 }
     );
     if (ref.current) obs.observe(ref.current);
@@ -27,6 +27,7 @@ export default function ProblemSolutionSection() {
 
   return (
     <section
+      id="problem-solution"
       ref={ref}
       className="bg-white py-16 md:py-24 px-4 md:px-8 overflow-hidden font-['Poppins',sans-serif]"
     >

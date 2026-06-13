@@ -118,6 +118,7 @@ export default function LogoStrip() {
 
   return (
     <div
+      data-aos="fade-up"
       className="border-y py-10 overflow-hidden"
       style={{ background: light, borderColor: "#bfdbfe", fontFamily: "'DM Sans', sans-serif" }}
     >

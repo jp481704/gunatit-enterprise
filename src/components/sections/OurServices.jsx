@@ -104,13 +104,13 @@ export default function OurServices() {
   const swiperRef = useRef(null);
 
   return (
-    <section className="bg-white py-20" style={{ fontFamily: "'Poppins', sans-serif" }}>
+    <section id="services" className="bg-white py-20" style={{ fontFamily: "'Poppins', sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');`}</style>
 
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
-        <div className="text-center mb-14">
+        <div data-aos="fade-up" className="text-center mb-14">
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border-[1.5px] border-[#4167BE] bg-[#EEF2FF] mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#4167BE] flex-shrink-0" />
             <span className="text-[10.5px] font-semibold tracking-[0.14em] uppercase text-[#4167BE]">
@@ -131,13 +131,13 @@ export default function OurServices() {
         {/* ── Desktop: static 3+2 grid ── */}
         <div className="hidden lg:block">
           {/* Top row: 3 cards */}
-          <div className="grid grid-cols-3 gap-5 mb-5">
+          <div data-aos="fade-up" data-aos-delay="100" className="grid grid-cols-3 gap-5 mb-5">
             {services.slice(0, 3).map((s, i) => (
               <ServiceCard key={i} service={s} index={i} tall={true} />
             ))}
           </div>
           {/* Bottom row: 2 wider cards */}
-          <div className="grid grid-cols-2 gap-5">
+          <div data-aos="fade-up" data-aos-delay="200" className="grid grid-cols-2 gap-5">
             {services.slice(3).map((s, i) => (
               <ServiceCard key={i + 3} service={s} index={i + 3} tall={false} />
             ))}

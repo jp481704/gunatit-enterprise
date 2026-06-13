@@ -20,14 +20,14 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section className="bg-slate-50 px-6 md:px-16 lg:px-24 py-24 overflow-hidden font-['DM_Sans']">
+    <section id="about" className="bg-slate-50 px-6 md:px-16 lg:px-24 py-24 overflow-hidden font-['DM_Sans']">
       <div className="max-w-7xl mx-auto">
         
         {/* Main Content Split */}
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-20 items-center">
           
           {/* Left Content */}
-          <div className="w-full lg:w-1/2 space-y-8 relative z-10">
+          <div data-aos="fade-right" className="w-full lg:w-1/2 space-y-8 relative z-10">
             
             {/* Top Label */}
             <div className="space-y-4">
@@ -80,7 +80,7 @@ export default function AboutSection() {
           </div>
 
           {/* Right Image Section with Floating Stats */}
-          <div className="w-full lg:w-1/2 relative flex justify-center mt-16 lg:mt-0 py-10">
+          <div data-aos="fade-left" data-aos-delay="150" className="w-full lg:w-1/2 relative flex justify-center mt-16 lg:mt-0 py-10">
             
             {/* Decorative Background Elements */}
             <div className="absolute top-14 -left-4 w-full h-[90%] border-2 border-[#4167BE]/20 rounded-2xl -z-10" />

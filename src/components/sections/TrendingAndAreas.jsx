@@ -66,10 +66,10 @@ export default function TrendingAndAreas() {
   const [hovered, setHovered] = useState(null);
 
   return (
-    <section className="bg-white py-24 px-4 md:px-8">
+    <section id="trending" className="bg-white py-24 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-14">
+        <div data-aos="fade-up" className="text-center mb-14">
           <div className="flex justify-center mb-5">
             <span className="px-5 py-2 rounded-full bg-blue-50 border border-blue-100 text-[#4167be] text-xs font-bold uppercase tracking-widest">
               Mumbai Trends
@@ -89,7 +89,7 @@ export default function TrendingAndAreas() {
         </div>
 
         {/* Trend Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div data-aos="fade-up" data-aos-delay="100" className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {trends.map((item, index) => (
             <div
               key={index}
@@ -125,7 +125,7 @@ export default function TrendingAndAreas() {
         </div>
 
         {/* Note Box */}
-        <div className="mt-8 bg-blue-50 border border-dashed border-blue-200 rounded-2xl p-6 flex gap-4">
+        <div data-aos="fade-up" data-aos-delay="150" className="mt-8 bg-blue-50 border border-dashed border-blue-200 rounded-2xl p-6 flex gap-4">
           <span className="text-xl">💡</span>
 
           <p className="text-slate-600 leading-7">

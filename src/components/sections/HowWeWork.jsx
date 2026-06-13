@@ -48,6 +48,7 @@ const pills = ["Simple", "Transparent", "Efficient"];
 export default function HowWeWork() {
   return (
     <section
+      id="how-we-work"
       className="bg-white py-16 md:py-20 px-4 md:px-6"
       style={{ fontFamily: "'Poppins', sans-serif" }}
     >
@@ -114,7 +115,7 @@ export default function HowWeWork() {
       <div className="max-w-7xl mx-auto">
 
         {/* ══════ HEADER ══════ */}
-        <div className="text-center mb-12 md:mb-16">
+        <div data-aos="fade-up" className="text-center mb-12 md:mb-16">
 
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full
@@ -159,6 +160,8 @@ export default function HowWeWork() {
           {steps.map((step, i) => (
             <div
               key={i}
+              data-aos="fade-up"
+              data-aos-delay={i * 80}
               className="hww-step py-2 md:py-4"
             >
               {/*

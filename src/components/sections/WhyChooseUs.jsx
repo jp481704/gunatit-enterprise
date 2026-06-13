@@ -13,6 +13,7 @@ const data = [
 export default function WhyChooseUs() {
   return (
     <section
+      id="why-us"
       className="bg-white py-20 px-6"
       style={{ fontFamily: "'Poppins', sans-serif" }}
     >
@@ -22,7 +23,7 @@ export default function WhyChooseUs() {
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <div className="text-center mb-14">
+        <div data-aos="fade-up" className="text-center mb-14">
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border-[1.5px] border-[#4167BE] bg-[#EEF2FF] mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#4167BE] flex-shrink-0" />
             <span className="text-[10.5px] font-semibold tracking-[0.14em] uppercase text-[#4167BE]">
@@ -42,7 +43,7 @@ export default function WhyChooseUs() {
         </div>
 
         {/* ── Comparison Table ── */}
-        <div className="w-full rounded-[22px] overflow-hidden border-[1.5px] border-[#e0e7ff]">
+        <div data-aos="fade-up" data-aos-delay="100" className="w-full rounded-[22px] overflow-hidden border-[1.5px] border-[#e0e7ff]">
 
           {/* ── Table header ── */}
           {/* Desktop: 3 cols | Tablet & Mobile: 2 cols (feature col hidden) */}

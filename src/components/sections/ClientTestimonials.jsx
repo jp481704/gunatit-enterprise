@@ -124,7 +124,7 @@ export default function ClientTestimonials() {
   /* IntersectionObserver */
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setInView(true); },
+      ([e]) => setInView(e.isIntersecting),
       { threshold: 0.1 }
     );
     if (sectionRef.current) obs.observe(sectionRef.current);
@@ -215,6 +215,7 @@ export default function ClientTestimonials() {
 
   return (
     <section
+      id="testimonials"
       ref={sectionRef}
       className="bg-white py-24 px-4 md:px-8 overflow-hidden"
       style={{ fontFamily: "'Poppins', system-ui, sans-serif" }}

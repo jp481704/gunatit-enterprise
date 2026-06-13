@@ -124,7 +124,7 @@ export default function FAQ() {
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      ([e]) => setInView(e.isIntersecting),
       { threshold: 0.1 }
     );
     if (ref.current) obs.observe(ref.current);
@@ -133,6 +133,7 @@ export default function FAQ() {
 
   return (
     <section
+      id="faq"
       ref={ref}
       className="bg-white py-24 px-4 md:px-8 overflow-hidden"
       style={{ fontFamily: "'Poppins', system-ui, sans-serif" }}

@@ -180,7 +180,7 @@ export default function Hero() {
       {/* ════════════════════════════════
           HERO — two-column split
       ════════════════════════════════ */}
-      <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
+      <div id="home" className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
 
         {/* ── LEFT – blue panel ── */}
         <div
