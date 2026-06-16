@@ -1,36 +1,59 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 const contactInfo = [
   {
     icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
     label: "Email",
-    value: "hello@gunatit.com",
+    value: "gunatit974@gmail.com",
   },
   {
     icon: "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z",
     label: "Phone",
-    value: "+91 98765 43210",
+    value: "+91 82911 01080",
   },
   {
     icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z",
     label: "Location",
-    value: "Ahmedabad, Gujarat, India",
+    value: "Mumbai, Maharashtra, India",
   },
 ];
 
 const EMPTY = { firstName: "", lastName: "", email: "", message: "" };
 
 export default function ContactUs() {
+  const formRef = useRef(null);
   const [form, setForm] = useState(EMPTY);
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
 
   const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setForm(EMPTY);
+    setStatus("sending");
+
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          to_name: "Deepak Parmar",
+          to_email: "gunatit974@gmail.com",
+          from_name: `${form.firstName} ${form.lastName}`,
+          from_email: form.email,
+          reply_to: form.email,
+          message: form.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      .then(() => {
+        setStatus("success");
+        setForm(EMPTY);
+      })
+      .catch(() => {
+        setStatus("error");
+      });
   };
 
   return (
@@ -57,6 +80,7 @@ export default function ContactUs() {
 
         {/* ── Two-column layout ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
           {/* ── Left: contact info ── */}
           <div data-aos="fade-right" className="flex flex-col gap-8">
             <div>
@@ -116,7 +140,7 @@ export default function ContactUs() {
 
           {/* ── Right: form ── */}
           <div data-aos="fade-left" data-aos-delay="150" className="bg-white/5 border border-white/10 backdrop-blur-sm rounded-2xl p-8">
-            {submitted ? (
+            {status === "success" ? (
               <div className="flex flex-col items-center justify-center h-full py-10 text-center gap-4">
                 <div className="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center">
                   <svg
@@ -137,14 +161,15 @@ export default function ContactUs() {
                   24 hours.
                 </p>
                 <button
-                  onClick={() => setSubmitted(false)}
+                  onClick={() => setStatus("idle")}
                   className="mt-2 text-blue-300 text-sm underline underline-offset-2 bg-transparent border-none cursor-pointer hover:text-white transition-colors"
                 >
                   Send another message
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-5">
+
                 {/* First Name + Last Name */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="flex flex-col gap-1.5">
@@ -221,16 +246,35 @@ export default function ContactUs() {
                   />
                 </div>
 
+                {/* Error message */}
+                {status === "error" && (
+                  <p className="text-red-400 text-xs text-center -mt-1">
+                    Something went wrong. Please try again or email us directly.
+                  </p>
+                )}
+
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="mt-1 w-full bg-blue-600 hover:bg-blue-500 text-white
-                  font-bold text-sm py-3.5 rounded-xl
+                  disabled={status === "sending"}
+                  className="mt-1 w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-60
+                  disabled:cursor-not-allowed text-white font-bold text-sm py-3.5 rounded-xl
                   transition-colors duration-200 cursor-pointer border-none
-                  shadow-lg shadow-blue-900/40"
+                  shadow-lg shadow-blue-900/40 flex items-center justify-center gap-2"
                 >
-                  Send Message
+                  {status === "sending" ? (
+                    <>
+                      <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                      </svg>
+                      Sending…
+                    </>
+                  ) : (
+                    "Send Message"
+                  )}
                 </button>
+
               </form>
             )}
           </div>

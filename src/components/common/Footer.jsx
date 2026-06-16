@@ -1,35 +1,20 @@
 const navLinks = [
-  { label: "Home", to: "/" },
-  { label: "About", to: "/about" },
-  { label: "Projects", to: "/projects" },
-  { label: "Contact Us", to: "/contact" },
+  { label: "Home",       id: "home" },
+  { label: "About",      id: "about" },
+  { label: "Services",   id: "services" },
+  { label: "Gallery",    id: "gallery" },
+  { label: "Contact Us", id: "contact" },
 ];
+import Logo from "../../assets/logo.png";
 
 const services = [
-  "Web Development",
-  "Mobile Apps",
-  "UI/UX Design",
-  "Cloud Solutions",
-  "Digital Marketing",
-  "IT Consulting",
+  "Residential Construction & Renovation",
+  "Structural & Civil Construction",
+  "Interior & Finishing Work",
+  "Electrical & Utility Services",
+  "Commercial Projects",
 ];
 
-const Logo = () => (
-  <div className="flex items-center gap-2 cursor-pointer select-none">
-    <div
-      className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600
-      flex items-center justify-center text-white font-black text-sm shrink-0"
-    >
-      GE
-    </div>
-    <div className="leading-tight">
-      <p className="text-white font-black text-sm tracking-wide">GUNATIT</p>
-      <p className="text-blue-300 font-semibold text-[9px] tracking-widest">
-        ENTERPRISE
-      </p>
-    </div>
-  </div>
-);
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -40,11 +25,10 @@ export default function Footer() {
       <div className="px-6 md:px-14 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand column */}
         <div className="flex flex-col gap-4">
-          <Logo />
-          <p className="text-blue-200 text-sm leading-relaxed">
-            Gunatit Enterprise delivers cutting-edge digital solutions that
-            empower businesses to scale with confidence.
-          </p>
+ {/* Logo */}
+          <div className="flex items-center gap-2 w-[60px] lg:w-[80px] bg-white rounded rounded-full" >
+            <img src={Logo}   alt="Logo" />
+          </div>       
           <div className="flex gap-3 mt-1">
             {/* Social icons (SVG inline, no extra deps) */}
             {[
@@ -90,10 +74,10 @@ export default function Footer() {
             Quick Links
           </h3>
           <ul className="flex flex-col gap-3">
-            {navLinks.map(({ label }) => (
+            {navLinks.map(({ label, id }) => (
               <li key={label}>
                 <a
-                  href="#"
+                  href={`#${id}`}
                   className="text-blue-200 text-sm hover:text-white transition-colors duration-200"
                 >
                   {label}
@@ -131,15 +115,15 @@ export default function Footer() {
             {[
               {
                 icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
-                text: "hello@gunatit.com",
+                text: "gunatit974@gmail.com",
               },
               {
                 icon: "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z",
-                text: "+91 98765 43210",
+                text: "+91 82911 01080",
               },
               {
                 icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z",
-                text: "Ahmedabad, Gujarat, India",
+                text: "Mumbai, Maharashtra, India",
               },
             ].map(({ icon, text }) => (
               <li key={text} className="flex items-start gap-3">

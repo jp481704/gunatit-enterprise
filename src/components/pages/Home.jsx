@@ -12,6 +12,7 @@ import Faq from "../sections/Faq";
 import Navbar from "../common/Navbar";
 import Footer from "../common/Footer";
 import ContactUs from "../sections/ContactUs";
+import Gallery from "../sections/Gallery";
 import  "../../App.css";
 
 const Home = () => {
@@ -27,6 +28,7 @@ const Home = () => {
       <HowWeWork />
       <ProblemSolutionSection />
       <TrendingAndAreas/>
+      <Gallery />
       <ClientTestimonials/>
       <Faq/>
       <ContactUs />

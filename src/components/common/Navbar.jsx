@@ -4,8 +4,10 @@ const navLinks = [
   { label: "Home",       id: "home" },
   { label: "About",      id: "about" },
   { label: "Services",   id: "services" },
+  { label: "Gallery",    id: "gallery" },
   { label: "Contact Us", id: "contact" },
 ];
+import Logo from "../../assets/logo.png";
 
 // Section IDs in DOM order — drives IntersectionObserver active tracking
 const ALL_SECTION_IDS = [
@@ -16,31 +18,13 @@ const ALL_SECTION_IDS = [
   "how-we-work",
   "problem-solution",
   "trending",
+  "gallery",
   "testimonials",
   "faq",
   "contact",
 ];
 
-/* ───────────────── Logo ───────────────── */
-const Logo = () => (
-  <div
-    onClick={() => scrollToSection("home")}
-    className="flex items-center gap-2 bg-white rounded-full px-3 py-1.5 cursor-pointer select-none shadow-md"
-  >
-    <div
-      className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-800 to-blue-500
-      flex items-center justify-center text-white font-black text-sm shrink-0"
-    >
-      GE
-    </div>
-    <div className="leading-tight pr-1">
-      <p className="text-blue-900 font-black text-xs tracking-wide">GUNATIT</p>
-      <p className="text-blue-500 font-semibold text-[9px] tracking-widest">
-        ENTERPRISE
-      </p>
-    </div>
-  </div>
-);
+
 
 function scrollToSection(id) {
   const el = document.getElementById(id);
@@ -108,7 +92,9 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Logo />
+          <div className="flex items-center gap-2 w-[60px] lg:w-[80px] bg-white rounded rounded-full" >
+            <img src={Logo}   alt="Logo" />
+          </div>
 
           {/* ═════════ Desktop Nav ═════════ */}
           <div
