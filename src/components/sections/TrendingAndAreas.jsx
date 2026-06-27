@@ -1,46 +1,45 @@
-import { useState } from "react";
 
 const trends = [
   {
-    icon: "💧",
-    title: "Advanced Waterproofing Solutions",
-    tag: "Long-Term Protection",
+    icon: "🪵",
+    title: "Premium Floor Tile Installation",
+    tag: "Seamless Finish",
     detail:
-      "Cutting-edge waterproofing systems that seal structures against moisture for decades.",
+      "Expert floor tile laying with precise levelling, grouting, and polishing for a flawless, long-lasting surface.",
   },
   {
-    icon: "🏠",
-    title: "Smart Interior & Space Optimization",
-    tag: "Modern Design",
+    icon: "🚿",
+    title: "Bathroom & Kitchen Tile Fitting",
+    tag: "Waterproof Precision",
     detail:
-      "Intelligent layouts that maximize every square foot with functional, beautiful interiors.",
+      "Waterproof tile installation for bathrooms and kitchens using premium adhesives and anti-skid finishes.",
   },
   {
-    icon: "🏗️",
-    title: "Durable RCC Structures",
-    tag: "High-Rise Buildings",
+    icon: "🖼️",
+    title: "Designer Wall Tile Installation",
+    tag: "Modern Interiors",
     detail:
-      "Reinforced concrete construction engineered for strength, safety, and longevity.",
+      "Stylish wall tile fitting for living rooms, offices, and retail spaces — perfectly aligned and finished.",
   },
   {
-    icon: "⚡",
-    title: "Energy-Efficient Electrical Installations",
-    tag: "Smart Utilities",
+    icon: "💎",
+    title: "Marble, Granite & Vitrified Flooring",
+    tag: "Luxury Appeal",
     detail:
-      "Modern wiring systems and lighting setups that reduce energy consumption significantly.",
+      "High-end marble, granite, and vitrified tile installation delivering premium aesthetics and durability.",
   },
   {
     icon: "🏢",
-    title: "Modern Commercial Infrastructure",
-    tag: "Development",
+    title: "Commercial Tile & Flooring Solutions",
+    tag: "Built for Heavy Use",
     detail:
-      "Future-ready commercial spaces designed to meet growing business and institutional needs.",
+      "Heavy-duty flooring for offices, showrooms, warehouses, and commercial spaces built to withstand high traffic.",
   },
 ];
 
 const areas = [
   {
-    city: "Mumbai",
+    city: "Mumbai-Thane",
     badge: "Primary Location",
     icon: "📍",
     desc: "Our headquarters and main operational hub — serving all neighbourhoods across the city.",
@@ -63,7 +62,6 @@ const areas = [
 ];
 
 export default function TrendingAndAreas() {
-  const [hovered, setHovered] = useState(null);
 
   return (
     <section id="trending" className="bg-white py-24 px-4 md:px-8">
@@ -72,19 +70,20 @@ export default function TrendingAndAreas() {
         <div data-aos="fade-up" className="text-center mb-14">
           <div className="flex justify-center mb-5">
             <span className="px-5 py-2 rounded-full bg-blue-50 border border-blue-100 text-[#4167be] text-xs font-bold uppercase tracking-widest">
-              Mumbai Trends
+              Tile Services
             </span>
           </div>
 
           <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
-            Trending Construction
+            Modern Tile Installation
             <br />
-            <span className="text-[#4167be]">Solutions in Mumbai</span>
+            <span className="text-[#4167be]">Services in Mumbai</span>
           </h2>
 
           <p className="mt-5 text-slate-500 max-w-2xl mx-auto leading-7">
-            Stay ahead with modern construction trends handled by an expert
-            civil contractor in Mumbai.
+            Enhance your residential and commercial spaces with precision tile
+            installation, premium flooring solutions, and expert craftsmanship
+            built to last.
           </p>
         </div>
 
@@ -93,9 +92,7 @@ export default function TrendingAndAreas() {
           {trends.map((item, index) => (
             <div
               key={index}
-              onMouseEnter={() => setHovered(index)}
-              onMouseLeave={() => setHovered(null)}
-              className="group flex items-center gap-4 bg-white border border-blue-100 rounded-2xl p-5 hover:border-blue-600 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="flex items-center gap-4 bg-white border border-blue-100 rounded-2xl p-5"
             >
               <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-xs font-bold text-[#4167be]">
                 {String(index + 1).padStart(2, "0")}
@@ -106,15 +103,7 @@ export default function TrendingAndAreas() {
               </div>
 
               <div className="flex-1">
-                <h3 className="font-semibold text-slate-900">
-                  {item.title}
-                </h3>
-
-                {hovered === index && (
-                  <p className="text-sm text-slate-500 mt-2 leading-6">
-                    {item.detail}
-                  </p>
-                )}
+                <h3 className="font-semibold text-slate-900">{item.title}</h3>
               </div>
 
               <span className="hidden sm:block text-xs font-semibold px-3 py-1 rounded-full bg-blue-100 text-[#4167be]">
@@ -129,11 +118,12 @@ export default function TrendingAndAreas() {
           <span className="text-xl">💡</span>
 
           <p className="text-slate-600 leading-7">
-            We continuously adopt new techniques to deliver{" "}
+            We use advanced installation techniques and premium materials to
+            deliver{" "}
             <span className="font-semibold text-[#4167be]">
-              future-ready construction solutions
+              elegant, durable, and low-maintenance flooring solutions
             </span>{" "}
-            across Mumbai and beyond.
+            across Mumbai.
           </p>
         </div>
 

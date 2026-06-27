@@ -1,5 +1,5 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const stats = [
   { value: "20+", label: "Years of Experience", icon: "🏗️" },
@@ -9,6 +9,8 @@ const stats = [
 ];
 
 export default function AboutSection() {
+  const [expanded, setExpanded] = useState(false);
+
   useEffect(() => {
     const link = document.createElement("link");
     link.href =
@@ -24,7 +26,7 @@ export default function AboutSection() {
       <div className="max-w-7xl mx-auto">
         
         {/* Main Content Split */}
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-20 items-center">
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-20 items-start">
           
           {/* Left Content */}
           <div data-aos="fade-right" className="w-full lg:w-1/2 space-y-8 relative z-10">
@@ -39,48 +41,125 @@ export default function AboutSection() {
             </div>
 
             {/* Paragraphs */}
-            <div className="space-y-5 text-slate-600 text-lg leading-relaxed">
-              <p>
-                Gunatit Enterprise is a trusted civil contractor in Mumbai known for delivering high-quality construction and renovation services across Mumbai, Pune, and Goa (Dervan).
-              </p>
-              <p>
-                With over two decades of industry experience, we provide complete civil and interior solutions tailored to residential, commercial, and institutional needs. Our team of skilled engineers, designers, and technicians ensures every project is executed with precision and transparency.
-              </p>
-               <p>
-                Gunatit Enterprise delivers complete civil and interior solutions across Mumbai, Pune, and Goa (Dervan) — serving residential, commercial, and institutional projects with skilled engineers, designers, and technicians. From foundation work to final finishing, we stand for excellence, safety, and timely delivery.
-              </p>
-            </div>
+          {/* Paragraphs */}
+<div className="space-y-2 text-slate-600 text-[15px] leading-relaxed">
 
-            {/* Core Competencies List */}
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 pb-4">
-              {["Foundation & Structural Work", "Complete Interior Solutions", "Commercial Renovations", "Timely & Safe Delivery"].map((item) => (
-                <li key={item} className="flex items-center gap-3 text-slate-800 font-medium">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#EEF2FF] flex items-center justify-center text-[#4167BE]">
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  {item}
-                </li>
-              ))}
-            </ul>
+  {/* Paragraph 1 */}
+  <p>
+    At <strong className="text-slate-800">Gunatit Enterprise</strong>, we provide{" "}
+    <strong className="text-slate-800">
+      professional tile fitting and flooring installation services in Mumbai
+    </strong>
+    , helping homeowners, builders, architects, and commercial property owners
+    create beautiful, durable, and long-lasting spaces. As a trusted civil
+    contractor with over{" "}
+    <strong className="text-slate-800">
+      20+ years of industry experience
+    </strong>
+    , we deliver precision craftsmanship, premium-quality materials, and
+    flawless finishes for every project.
+  </p>
 
-            {/* CTA Button */}
-            <div>
-              <a
-                href="/about"
-                className="inline-flex items-center gap-3 bg-[#4167BE] text-white font-semibold text-sm px-8 py-4 rounded-xl transition-all duration-300 hover:bg-[#32529c] hover:-translate-y-1 hover:shadow-xl hover:shadow-[#4167BE]/20 font-['Sora']"
-              >
-                Get to Know Us
-                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
-            </div>
+  {/* Paragraph 2 */}
+  <p>
+    Whether you're renovating your home, designing a new office, upgrading a
+    retail showroom, or completing a large commercial project, our experienced
+    tile installation specialists ensure every tile is perfectly aligned,
+    levelled, and securely installed. From{" "}
+    <strong className="text-slate-800">
+      ceramic tiles, vitrified tiles, porcelain tiles, marble, granite, mosaic,
+      wooden flooring, Bathroom & Kitchen Graynite Fitting, Modular Kitchen and anti-skid tiles
+    </strong>{" "}
+    to custom flooring solutions, we handle projects of every size with
+    exceptional attention to detail.
+  </p>
+
+  {/* Paragraph 3 */}
+  <p>
+    Our comprehensive flooring services include{" "}
+    <strong className="text-slate-800">
+      surface preparation, floor levelling, tile protection, tile cutting,
+      grout finishing, polishing, and complete floor installation
+    </strong>
+    , ensuring strength, durability, and a premium finish that lasts for years.
+    Every project is completed using modern tools, proven installation
+    techniques, and strict quality standards to deliver outstanding results on
+    time and within budget.
+  </p>
+
+  {/* Expandable Content */}
+  <div
+    className={`overflow-hidden transition-all duration-700 ease-in-out ${
+      expanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+    }`}
+  >
+    <div className="space-y-5">
+      <p>
+        Serving clients across{" "}
+        <strong className="text-slate-800">
+          Mumbai, Navi Mumbai, Thane, Pune, and Goa (Dervan)
+        </strong>
+        , Gunatit Enterprise has built a reputation for reliability,
+        transparent pricing, and superior workmanship. Our commitment to
+        quality, timely project completion, and customer satisfaction has made
+        us a preferred choice for residential, commercial, industrial, and
+        renovation flooring projects.
+      </p>
+
+      <p>
+        Whether you need{" "}
+        <strong className="text-slate-800">
+          professional tile fitting for your home
+        </strong>
+        ,{" "}
+        <strong className="text-slate-800">
+          office flooring installation
+        </strong>
+        ,{" "}
+        <strong className="text-slate-800">
+          commercial tile work
+        </strong>
+        , or{" "}
+        <strong className="text-slate-800">
+          expert floor renovation services
+        </strong>
+        , Gunatit Enterprise is your trusted partner for precision flooring
+        solutions that combine durability, functionality, and elegant design.
+      </p>
+    </div>
+  </div>
+
+  {/* Read More Button */}
+  <button
+    onClick={() => setExpanded(!expanded)}
+    className="inline-flex items-center gap-2 text-[#4167BE] font-semibold text-sm hover:underline transition-all duration-200 cursor-pointer bg-transparent border-none p-0"
+    style={{ fontFamily: "'Sora', sans-serif" }}
+  >
+    {expanded ? "Read Less" : "Read More"}
+
+    <svg
+      className={`w-4 h-4 transition-transform duration-300 ${
+        expanded ? "rotate-180" : ""
+      }`}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2.5}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M19 9l-7 7-7-7"
+      />
+    </svg>
+  </button>
+</div>
+
+          
           </div>
 
           {/* Right Image Section with Floating Stats */}
-          <div data-aos="fade-left" data-aos-delay="150" className="w-full lg:w-1/2 relative flex justify-center mt-16 lg:mt-0 py-10">
+          <div data-aos="fade-left" data-aos-delay="150" className="w-full lg:w-1/2 relative flex justify-center mt-16 lg:mt-0 py-10 lg:self-start">
             
             {/* Decorative Background Elements */}
             <div className="absolute top-14 -left-4 w-full h-[90%] border-2 border-[#4167BE]/20 rounded-2xl -z-10" />

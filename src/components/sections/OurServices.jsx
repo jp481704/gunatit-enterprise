@@ -3,42 +3,33 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import "swiper/css";
 
-import picture1 from "../../assets/picture-1.webp";
-import picture2 from "../../assets/picture-2.webp";
-import picture3 from "../../assets/picture-3.webp";
-import picture4 from "../../assets/picture-4.webp";
-import picture5 from "../../assets/picture-5.webp";
+import picture1 from "../../assets/residential-construction.jpeg";
+import picture2 from "../../assets/Interior-finishing.jpeg";
+import picture3 from "../../assets/commercial-projects.jpeg";
 
 const services = [
   {
     number: "01",
     title: "Residential Construction & Renovation",
+    alt:"Residential Construction & Renovation gunatit enterprise",
     items: ["Complete Home Renovation", "Bathroom & Kitchen Remodeling", "Tile Installation & Waterproofing", "Brickwork & Plastering", "Interior Furnishing & Custom Work"],
-    image: picture2,
-  },
-  {
-    number: "02",
-    title: "Structural & Civil Construction",
-    items: ["Residential & Commercial Construction", "Site Preparation & Land Development", "Foundation & Base Work", "RCC Structure Work", "Compound Wall Construction", "Plumbing & Drainage Systems"],
-    image: picture3,
-  },
-  {
-    number: "03",
-    title: "Interior & Finishing Work",
-    items: ["POP & False Ceiling Design", "Interior Designing & Space Planning", "Painting & Decorative Finishes", "Modular Kitchen & Wardrobe Installation", "Office Interior Fit-Out"],
-    image: picture4,
-  },
-  {
-    number: "04",
-    title: "Electrical & Utility Services",
-    items: ["Electrical Wiring & Installation", "Lighting Setup", "Maintenance & Repair"],
     image: picture1,
   },
+ 
   {
-    number: "05",
-    title: "Commercial Projects",
+    number: "02",
+    title: "Interior & Finishing Work",
+    alt: "Interior & Finishing Work from Gunatit Enterprise",
+    items: ["POP & False Ceiling Design", "Interior Designing & Space Planning", "Painting & Decorative Finishes", "Modular Kitchen & Wardrobe Installation", "Office Interior Fit-Out"],
+    image: picture2,
+  },
+
+  {
+    number: "03",
+    title: "Commercial Projects service",
+    alt: "Commercial Projects service for Gunatit Enterprise",
     items: ["Hospitals & Healthcare Buildings", "Schools & Educational Institutions", "Commercial Spaces & Showrooms", "Office Renovation & Fit-Out"],
-    image: picture5,
+    image: picture3,
   },
 ];
 
@@ -55,7 +46,7 @@ function ServiceCard({ service, index, tall = true }) {
       {/* Image */}
       <img
         src={service.image}
-        alt={service.title}
+        alt={service.alt}
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-500"
         style={{ transform: hovered ? "scale(1.06)" : "scale(1)" }}
       />

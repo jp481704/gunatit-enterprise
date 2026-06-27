@@ -1,25 +1,25 @@
 import { useState, useEffect, useRef } from "react";
 
 const faqs = [
-  { q: "Why should I choose Gunatit Enterprise as a civil contractor in Mumbai?", a: "We have 25+ years of experience, a skilled team, and a strong track record of delivering quality projects on time. Our transparent pricing and all-in-one service approach make us a reliable civil contractor in Mumbai.", icon: "🏆", tag: "About Us" },
-  { q: "Do you handle complete construction from start to finish?",               a: "Yes, we provide end-to-end services including planning, civil work, interiors, electrical, and final finishing. You don't need to coordinate with multiple vendors.", icon: "🔄", tag: "Services" },
-  { q: "What types of projects do you usually work on?",                           a: "We handle residential homes, commercial spaces, offices, hospitals, schools, and renovation projects across Mumbai, Pune, and Goa.", icon: "🏗️", tag: "Projects" },
-  { q: "Do you provide renovation services for old homes?",                        a: "Yes, we specialize in complete home renovation including structural changes, waterproofing, interiors, and modern upgrades.", icon: "🏠", tag: "Renovation" },
-  { q: "How do you ensure quality in construction work?",                          a: "We use high-quality materials, experienced professionals, and follow proper site supervision and safety standards at every stage.", icon: "🏅", tag: "Quality" },
-  { q: "Do you offer waterproofing solutions for leakage issues?",                 a: "Yes, we provide effective and long-lasting waterproofing solutions for terraces, bathrooms, walls, and basements.", icon: "💧", tag: "Services" },
-  { q: "Can you help with design and interior planning as well?",                  a: "Absolutely, our team provides interior design, space planning, modular kitchen setup, and complete finishing work along with civil construction.", icon: "🎨", tag: "Interior" },
-  { q: "How is the project cost calculated?",                                      a: "The cost depends on project size, materials, design requirements, and scope of work. We provide a clear and detailed quotation before starting.", icon: "💰", tag: "Pricing" },
-  { q: "Do you complete projects on time?",                                        a: "Yes, we follow a structured process and timeline to ensure timely delivery without compromising on quality.", icon: "📅", tag: "Delivery" },
-  { q: "Are your workers skilled and experienced?",                                a: "Yes, our team consists of trained and experienced professionals who have worked on multiple residential and commercial projects.", icon: "👷", tag: "Team" },
-  { q: "Which areas do you serve?",                                                a: "We mainly serve Mumbai and also take projects in Pune and Goa (Dervan).", icon: "📍", tag: "Locations" },
-  { q: "How can I get started or request a quote?",                                a: "You can call us directly or fill out the contact form on our website. Our team will get in touch with you quickly.", icon: "📞", tag: "Contact" },
+  { q: "Why should I choose Gunatit Enterprise for tile fitting services in Mumbai?", a: "We combine 20+ years of construction experience, skilled tile installers, premium materials, and precision workmanship to deliver durable, perfectly aligned flooring for residential and commercial properties. Our focus on quality, timely completion, and customer satisfaction makes us a trusted tile fitting contractor in Mumbai.", icon: "🏆", tag: "About Us" },
+  { q: "What types of tiles do you install?", a: "We install a wide range of tiles, including ceramic tiles, vitrified tiles, porcelain tiles, marble tiles, granite tiles, mosaic tiles, anti-skid tiles, designer wall tiles, and large-format tiles for homes, offices, retail spaces, and commercial projects.", icon: "🪟", tag: "Tiles" },
+  { q: "Do you provide both residential and commercial tile installation?", a: "Yes. We offer professional tile fitting and flooring installation for apartments, villas, offices, restaurants, hotels, retail stores, hospitals, schools, warehouses, and commercial buildings across Mumbai.", icon: "🏢", tag: "Services" },
+  { q: "Do you remove old flooring before installing new tiles?", a: "Yes. Our team can safely remove existing flooring, prepare the surface, level the floor if required, and install new tiles to ensure a strong, long-lasting finish.", icon: "🏗️", tag: "Services" },
+  { q: "Do you provide waterproofing before tile installation?", a: "Absolutely. We recommend and provide professional waterproofing solutions for bathrooms, kitchens, balconies, terraces, and wet areas before tile installation to prevent future leakage and moisture damage.", icon: "💧", tag: "Waterproofing" },
+  { q: "How long does tile installation take?", a: "The project duration depends on the area size, tile type, surface condition, and installation complexity. Most residential tile fitting projects are completed within a few days, while larger commercial projects may require additional time.", icon: "📅", tag: "Timeline" },
+  { q: "Can you install marble, granite, and wooden flooring?", a: "Yes. Our flooring experts specialize in marble flooring, granite flooring, vitrified flooring, wooden flooring, stone flooring, and designer floor installations, ensuring precision and premium finishing.", icon: "💎", tag: "Flooring" },
+  { q: "How much does tile fitting cost in Mumbai?", a: "Tile installation costs vary based on the tile material, project size, design pattern, surface preparation, and labour requirements. Contact us for a free site visit and a detailed, transparent quotation.", icon: "💰", tag: "Pricing" },
+  { q: "Do you provide tile repair and replacement services?", a: "Yes. We repair cracked, loose, chipped, or damaged tiles and also provide complete tile replacement services for homes, offices, and commercial properties without compromising the surrounding flooring.", icon: "🔧", tag: "Repairs" },
+  { q: "Which areas do you serve for tile fitting and flooring installation?", a: "We proudly serve Mumbai, Navi Mumbai, Thane, Mira Road, Borivali, Andheri, Bandra, Powai, Pune, and Goa, delivering professional tile installation services for residential and commercial projects.", icon: "📍", tag: "Locations" },
+  { q: "Do you help customers choose the right tiles?", a: "Yes. Our experts help you select the most suitable tile size, material, finish, colour, texture, and layout pattern based on your interior design, budget, and functional requirements.", icon: "🎨", tag: "Guidance" },
+  { q: "How can I book a tile fitting service with Gunatit Enterprise?", a: "Simply contact our team by phone, WhatsApp, or the enquiry form on our website. We'll arrange a free consultation, site inspection, material guidance, and detailed quotation before starting your project.", icon: "📞", tag: "Contact" },
 ];
 
 const miniStats = [
-  { val: "12+",  label: "Questions Answered" },
-  { val: "25+",  label: "Years Experience"   },
-  { val: "500+", label: "Happy Clients"      },
-  { val: "3",    label: "Cities Served"      },
+  { val: "12+",  label: "Questions Answered"  },
+  { val: "20+",  label: "Years Experience"    },
+  { val: "500+", label: "Happy Clients"       },
+  { val: "10+",  label: "Areas Served"        },
 ];
 
 /* ── Single FAQ accordion item ── */
@@ -196,9 +196,9 @@ export default function FAQ() {
 
           <p className="text-slate-500 font-normal max-w-[520px] mx-auto leading-[1.75]"
             style={{ fontSize: "15.5px" }}>
-            Everything you need to know before working with{" "}
+            Everything you need to know about tile fitting and flooring services with{" "}
             <strong className="text-[#0f172a] font-semibold">Gunatit Enterprise</strong>{" "}
-            — Mumbai's most trusted civil contractor.
+            — Mumbai's trusted tile installation contractor.
           </p>
         </div>
 
@@ -318,7 +318,7 @@ export default function FAQ() {
 
               {/* Solid white btn */}
               <a
-                href="tel:+91"
+                href="tel:+91 82911 01080"
                 className="inline-flex items-center gap-2 bg-white text-[#4167BE]
                   font-bold text-sm px-7 py-3.5 rounded-xl border-none
                   shadow-[0_6px_20px_rgba(0,0,0,0.14)]

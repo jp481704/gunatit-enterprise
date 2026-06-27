@@ -110,11 +110,9 @@ const BuildingIllustration = () => (
    Data
 ───────────────────────────────────────── */
 const SERVICES = [
-  { icon: "🏗️", label: "Civil Construction" },
   { icon: "🏢", label: "Commercial" },
   { icon: "🏠", label: "Residential" },
   { icon: "🔨", label: "Renovation" },
-  { icon: "⚙️", label: "RCC Structure" },
 ];
 
 
@@ -282,6 +280,9 @@ export default function Hero() {
               {SERVICES.map(s => (
                 <span
                   key={s.label}
+                  onClick={() =>
+                    document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
+                  }
                   className="inline-flex items-center gap-1.5 text-blue-100
                     rounded-full px-4 py-2 text-xs font-medium cursor-pointer
                     border border-white/18 transition-all duration-200
